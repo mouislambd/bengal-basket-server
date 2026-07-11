@@ -1,0 +1,37 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import connectDB from "./config/db.js";
+import { auth } from "./lib/auth.js";
+import { toNodeHandler } from "better-auth/node";
+import foodRoutes from "./routes/foodRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+connectDB();
+
+app.use(cors({
+    origin: [process.env.CLIENT_URL as string, "http://localhost:3000"],
+    credentials: true,
+}));
+
+app.all("/api/auth/*splat", toNodeHandler(auth));
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/food", foodRoutes);
+app.use("/api/reviews", reviewRoutes);
+
+app.get("/", (req, res) => {
+    res.json({ message: "Bengal Basket Server is running! 🍛" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

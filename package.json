@@ -1,0 +1,32 @@
+{
+  "name": "bengal-basket-server",
+  "version": "1.0.0",
+  "description": "Bengal Basket Backend API",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+  "dev": "nodemon --exec tsx index.ts"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-auth": "^1.2.8",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.0.0",
+    "mongoose": "^8.15.0",
+    "stripe": "^17.7.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.1",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.23.0",
+    "typescript": "^7.0.2"
+  }
+}
