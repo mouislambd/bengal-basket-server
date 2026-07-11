@@ -16,8 +16,11 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 app.use(cors({
-    origin: [process.env.CLIENT_URL as string, "http://localhost:3000"],
-    credentials: true,
+    origin: [
+        "http://localhost:3000",
+        "https://bengal-basket-client.vercel.app"
+    ],
+    credentials: true
 }));
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
