@@ -13,7 +13,10 @@ const db = client.db();
     database: mongodbAdapter(db),
     baseURL: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
-    trustedOrigins: [process.env.CLIENT_URL as string, "http://localhost:3000"],
+      trustedOrigins: [
+          "http://localhost:3000",
+          "https://bengal-basket-client.vercel.app",
+      ],
     emailAndPassword: {
         enabled: true,
     },
