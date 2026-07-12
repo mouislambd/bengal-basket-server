@@ -11,6 +11,7 @@ import foodRoutes from "./routes/foodRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import paymentRoutes from "./routes/payment";
 import orderRoutes from "./routes/orderRoutes.js";
+import newsletterRoutes from "./routes/newsletterRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,6 +36,7 @@ app.use("/api/food", foodRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/newsletter", newsletterRoutes);
 app.get("/", (req, res) => {
     res.json({ message: "Bengal Basket Server is running! 🍛" });
 });
