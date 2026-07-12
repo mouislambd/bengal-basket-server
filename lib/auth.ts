@@ -7,16 +7,21 @@ import { MongoClient } from "mongodb";
 
 const client = new MongoClient(process.env.MONGODB_URI as string);
 const db = client.db();
-  
-  
-  export const auth = betterAuth({
-    database: mongodbAdapter(db),
+
+
+export const auth = betterAuth({
     baseURL: process.env.BETTER_AUTH_URL,
     secret: process.env.BETTER_AUTH_SECRET,
-      trustedOrigins: [
-          "http://localhost:3000",
-          "https://bengal-basket-client.vercel.app",
-      ],
+    trustedOrigins: [
+        "http://localhost:3000",
+        "https://bengal-basket-client.vercel.app",
+    ],
+    advanced: {
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+        },
+    },
     emailAndPassword: {
         enabled: true,
     },
@@ -32,4 +37,5 @@ const db = client.db();
             trustedProviders: ["google"],
         },
     },
+    database: mongodbAdapter(db),
 });
