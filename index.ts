@@ -9,6 +9,7 @@ import { auth } from "./lib/auth.js";
 import { toNodeHandler } from "better-auth/node";
 import foodRoutes from "./routes/foodRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import paymentRoutes from "./routes/payment";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,10 +27,12 @@ app.use(cors({
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/food", foodRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
     res.json({ message: "Bengal Basket Server is running! 🍛" });
