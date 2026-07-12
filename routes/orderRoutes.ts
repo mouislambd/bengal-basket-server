@@ -49,5 +49,40 @@ router.get("/:id", requireAuth, async (req: AuthRequest, res: Response) => {
         res.status(500).json({ message: "Failed to fetch order" });
     }
 });
+// Admin: Get all orders
+router.get("/", requireAuth, async (req: AuthRequest, res: Response) => {
+    try {
+        if (req.user?.email !== "admin@gmail.com") {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+        const orders = await Order.find().sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to fetch orders" });
+    }
+});
+
+// Admin: Update order status (mark as delivered)
+router.patch("/:id/status", requireAuth, async (req: AuthRequest, res: Response) => {
+    try {
+        if (req.user?.email !== "admin@gmail.com") {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+        const { status } = req.body;
+        const order = await Order.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+        if (!order) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+        res.json(order);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to update order" });
+    }
+});
+
+
 
 export default router;
